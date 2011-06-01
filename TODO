@@ -1,0 +1,71 @@
+why have wait w/ a timeout?
+
+read/write methods to interact with process (stdin/stdout vs channel)
+
+close stdin when stdout->readAll() is called?
+close stdin before wait()
+close stdout after wait()
+	do NOT close stdout after forking
+make interaction w/ process simpler (stdin/stdout vs channel, wrap stream access)
+	but provide for fine grained control???
+	forked process
+
+ProcessManager singleton
+ProcessManager method for handling SIGCHLD
+ProcessManager maintains self-pipe
+ProcessManager reaps children, maintains list of reaped pids
+ProcessManager maintains list of child processes, pids, exit statuses
+Process asks ProcessManager if a child is alive
+subject/observer w/ Channel and Process
+Process tells ProcessManager when it forks
+In child process, ProcessManager tells all channels to switch to child stream
+Support nested forks/processes (e.g. new self-pipe, etc.)
+
+self-pipe, SIGCHLD handler
+static methods or separate object to track forked process and catch SIGCHLD signals
+
+test signal handling in parent and child
+pass pipes to Process
+cwd
+env
+escapeshellcmd(), escapeshellarg()
+
+subject/observer to record parent's pid in one place, update channels when forking occurs
+stream contexts
+stream selector
+output buffering in child?
+pcntl_exec??
+pcntl_sigprocmask
+
+
+Process
+	CallbackProcess
+	 	uses stdin, stdout, stderr of parent
+		needs a channel to communicate w/ parent (pass via contructor)
+		provide ability to use 
+
+	ShellProcess
+	 	uses it's own stdin, stdout, sterr
+		cannot use channel
+		need ability for parent process to connect ShellProcesses
+
+Different
+	fork() (pcntl_fork vs proc_open)
+	close() ()
+
+Same
+	args
+	pid
+	open/started
+	exit status
+	stdin, stdout, stderr
+	signal()
+	wait()
+	isAlive()
+
+Tests
+	connect a ShellProcess to a ShellProcess
+	connect a ShellProcess to a CallbackProcess
+	connect a CallbackProcess to a CallbackProcess
+	connect a CallbackProcess to a ShellProcess
+	

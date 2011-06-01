@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+	bootstrap="bootstrap.php"
+	backupGlobals="false"
+	backupStaticAttributes="false"
+	syntaxCheck="false">
+
+  <testsuites>
+    <testsuite>
+      <directory suffix="Test.php">.</directory>
+    </testsuite>
+  </testsuites>
+
+	<php>
+		<!-- E_ALL | E_STRICT -->
+		<ini name="error_reporting" value="32767" />
+	</php>
+
+</phpunit>
