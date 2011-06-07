@@ -157,4 +157,13 @@ class ProcessSet extends SplObjectStorage
 		}
 		return $reaped; // @TODO ??? return a ProcessSet?
 	}
+
+// public function addProcess($process, $name, $ipc_method) {} //expects a process object?
+// public function executeProcess($process) {} // call Process::execute() instead?
+// public function executeAll() {}
+// public function readAll() {} // does this return anything? blocking?
+// public function writeAll($message) {} // blocking?
+// public function createProcess($command) {}
+// protected function spawn() {}
+
 }

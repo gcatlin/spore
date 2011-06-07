@@ -26,7 +26,6 @@ class ProcessManager {
 	public function waitpid() {}
 	public function waitAny() {}
 	public function waitAll() {}
-	
 }
 
 // onFork()

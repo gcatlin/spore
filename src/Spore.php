@@ -19,7 +19,6 @@ make it reallly easy to:
 
 $p = new Process(callback|command, args);
 
-
 // self pipe stuff
 http://cr.yp.to/docs/selfpipe.html
 http://en.wikipedia.org/wiki/SIGCHLD
@@ -78,6 +77,18 @@ http://en.wikipedia.org/wiki/Message_passing
 http://en.wikipedia.org/wiki/Process_management_(computing)
 http://en.wikipedia.org/wiki/Berkeley_sockets
 
+http://en.wikipedia.org/wiki/Stream_(computing)
+http://en.wikipedia.org/wiki/Standard_streams
+http://en.wikipedia.org/wiki/Redirection_(computing)
+http://en.wikipedia.org/wiki/Pipeline_(Unix)
+
+http://en.wikipedia.org/wiki/Message-oriented_middleware
+http://en.wikipedia.org/wiki/Message_queue
+http://en.wikipedia.org/wiki/Publish/subscribe
+http://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol
+http://en.wikipedia.org/wiki/Extensible_Messaging_and_Presence_Protocol
+http://en.wikipedia.org/wiki/Concurrent_programming
+
 Beej's Guide to Unix IPC
 http://beej.us/guide/bgipc/output/html/multipage/index.html
 
@@ -106,12 +117,6 @@ phpmio
 http://thethoughtlab.blogspot.com/2007/04/non-blocking-io-with-php-mio.html
 https://github.com/nrk/phpmio
 
-
-http://en.wikipedia.org/wiki/Stream_(computing)
-http://en.wikipedia.org/wiki/Standard_streams
-http://en.wikipedia.org/wiki/Redirection_(computing)
-http://en.wikipedia.org/wiki/Pipeline_(Unix)
-
 http://www.gnu.org/software/libc/manual/html_mono/libc.html#I_002fO-on-Streams
 http://us.php.net/manual/en/intro.stream.php
 
@@ -120,21 +125,46 @@ http://us.php.net/manual/en/intro.stream.php
 @TODO? StreamWrappers for head, tail, sed, functionality?
 
 separate class for select()ing on an array of streams?
-*/
+
+
+Use cases:
+	serialized/single threaded (N jobs, 1 worker)
+	# jobs > # workers (N jobs, M workers)
+	all workers process same job
+	spawn, kill, respawn
+
+Features
+	workers
+	commands (jobs?)
+	stdin, stdout, stderr, streams
+	asynchronous
+	pipelines
+	tested, testable
+	anonymous pipe (simplex and full-duplex)
+
+Ideas
+	Make this like a Message Broker? Pubsub?
+	Classes: Publisher, MessageBroker, Subscriber
+	Classes: ProcessManager, Process, SystemProcess, PhpProcess, MultiProcessManager?
+	Classes: Filter, Pipeline, Steam, Daemon
+	Classes: Pipe, NamedPipe, AnonymousPipe, Socket, DomainSocket, Semaphore, Signal, MessageQueue
+	Classes: Program
+	MessageBroker::subscribe($subscriber, $pattern)
+/
 
 $included_files = get_included_files();
 if ($included_files[0] == __FILE__) {
 	// function f($message) {
 	// 	echo $message;
 	// }
-	// 
+	//
 	// require dirname(__FILE__).'/Process.php';
 	// $ps = new ProcessSet();
 	// $ps->add(new Process('f', "Hello world!\n"));  // auto-starts
 	// $ps->add(new Process('f', "Hi!\n"));  // auto-starts
 	// $ps->add(new Process('f', "Hey!\n"));  // auto-starts
 	// $ps->wait();
-	
+
 	// goal create a program that can launch/control/watch other programs
 	$spawner = new Spawner();
 
